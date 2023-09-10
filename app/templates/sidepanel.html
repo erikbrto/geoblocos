@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Sidepanel</title>
+    <link href="extension.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div id="username" class="header-tag">osm-username</div>
+        <div id="metamask" class="header-tag">
+          metamask
+          <img id="metamask-status" />
+        </div>
+      </div>
+      <div id="content-box" class="content-box">
+        <div id="content-label" class="content-label">
+          <select id="content-selector" class="content-selector">
+            <option value="my-changesets">Meus Mapeamentos</option>
+            <option value="my-nfts">Meus NFTs</option>
+            <option value="open-projects">Projetos Abertos</option>
+            <option value="my-projects">Meus Projetos</option>
+          </select>
+        </div>
+      </div>
+      <div class="footer">
+        <a
+          href="https://www.flaticon.com/br/icones-gratis/nft"
+          title="nft ícones"
+          >NFT Ícones criados por Mehwish - Flaticon</a
+        >
+      </div>
+    </div>
+    <script type="module" src="../scripts/utils/eth-utils.js"></script>
+    <script type="module" src="../scripts/controllers/sidepanel.js"></script>
+  </body>
+</html>

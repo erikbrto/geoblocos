@@ -1,0 +1,153 @@
+/* CORES */
+html,
+body {
+  color: #0f0f0f;
+  background-color: #AAD3DF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+a:any-link {
+  color: #0f0f0f;
+  text-decoration: none;
+}
+
+.header,
+.landing-box,
+.footer {
+  background-color: #ADD19E;
+  border: 0.1px solid #9fc090;
+}
+
+.content-selector {
+  color: #5a2d03;
+  background-color: #D9D0C9;
+  border: 0.1px solid #C4B6A9;
+}
+
+.content-card {
+  background-color: #FFFFE5;
+  border: 1px solid #C6C99A;
+}
+
+.content-card:hover {
+  background-color: #F9B29C;
+  border: 1px solid #DD8D78;
+}
+
+/* POSICIONAMENTO DOS ELEMENTOS */
+.container {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.header {
+  min-height: 150px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 0px 0px 40px 40px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.content-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.landing-box {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  justify-content: center;
+  font-size: large;
+  text-align: center;
+}
+
+.footer {
+  min-height: 60px;
+  margin-top: 25px;
+  font-size: x-small;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-tag {
+  color:#0f0f0f;
+  background-color: #FFFFE5;
+  padding: 5px 20px;
+  border: #C6C99A solid 2.5px;
+  border-radius: 25px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.changeset {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 15px;
+  padding: 10px 25px;
+  border-radius: 5px;
+}
+
+.content-label {
+  padding: 0px 30px 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: large;
+  font-variant: small-caps;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.content-selector {
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  font-size: medium;
+  font-variant: small-caps;
+  letter-spacing: 5px;
+}
+
+.changeset-title {
+  width: 65%;
+  opacity: 0.8;
+  font-size: large;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+a.changeset-title:hover {
+  opacity: 1;
+  transform: scale(1.01);
+}
+
+.changeset-button {
+  width: 25%;
+  display: flex;
+  justify-content: end;
+}
+
+.img-button {
+  transform: scale(0.8);
+}
+
+.img-button:hover {
+  transform: scale(1);
+}
+
