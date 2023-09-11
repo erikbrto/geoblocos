@@ -1,5 +1,3 @@
-import { MappingProject } from './mapping-project.js';
-
 export class OpenProjects {
   #data;
 
@@ -13,17 +11,8 @@ export class OpenProjects {
       : false;
   }
 
-  insert(id, username, relationId, relationName, relationNodes, acceptedAmenities) {
-    if (!this.#checkIdExists(id)) {
-      const project = new MappingProject(
-        id,
-        username,
-        relationId,
-        relationName,
-        relationNodes,
-        acceptedAmenities
-      );
-
+  insert(project) {
+    if (!this.#checkIdExists(project.id)) {
       this.#data.push(project);
     }
   }
@@ -36,6 +25,12 @@ export class OpenProjects {
 
   getAll() {
     return this.#data
+      .sort((a, b) => (a.relationName < b.relationName ? -1 : 1))
+  }
+
+  getAllFromUser(username) {
+    return this.#data
+      .filter((item) => item.username === username)
       .sort((a, b) => (a.relationName < b.relationName ? -1 : 1))
   }
 

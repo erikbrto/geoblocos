@@ -1,6 +1,7 @@
 import { OSM_API_URL } from '../utils/constants.js';
 import { ChangetsetStatus } from '../models/enums.js';
 import { Coordinates } from '../models/coordinates.js';
+import { MappingChangeset } from '../models/mapping-changeset.js';
 import { UserChangesets } from '../models/user-changesets.js';
 
 async function fetchChangesetValuesByKey(changesetId, key) {
@@ -74,8 +75,7 @@ export async function fetchUserChangesets(username) {
     for (const changeset of responseJSON.changesets) {
       const coordinates = await fetchChangesetCoordinates(changeset.id);
       const amenities = await fetchChangesetValuesByKey(changeset.id, 'amenity');
-
-      userChangesets.insert(
+      const mappingChangeset = new MappingChangeset(
         changeset.id,
         (await ethutils.isChangesetMinted(changeset.id))
           ? ChangetsetStatus.Minted
@@ -84,6 +84,8 @@ export async function fetchUserChangesets(username) {
         coordinates.maxCoordinates,
         amenities
       );
+
+      userChangesets.insert(mappingChangeset);
     }
 
     return userChangesets;

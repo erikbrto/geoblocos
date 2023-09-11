@@ -14,16 +14,8 @@ export class UserChangesets {
       : false;
   }
 
-  insert(id, status, minCoortinates, maxCoordinates, amenities) {
-    if (!this.#checkIdExists(id)) {
-      const changeset = new MappingChangeset(
-        id,
-        status,
-        minCoortinates,
-        maxCoordinates,
-        amenities
-      );
-
+  insert(changeset) {
+    if (!this.#checkIdExists(changeset.id)) {
       this.#data.push(changeset);
     }
   }

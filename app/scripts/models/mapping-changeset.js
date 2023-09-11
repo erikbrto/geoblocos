@@ -5,5 +5,6 @@ export class MappingChangeset {
         this.minCoortinates = minCoortinates;
         this.maxCoordinates = maxCoordinates;
         this.amenities = amenities;
+        this.tokenURI = null;
     }
 }
