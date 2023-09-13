@@ -18,13 +18,17 @@
           <label class="input-label">Nome do Projeto</label>
           <input id="project-name-input" type="text" class="input-text">
         </div>
-        <div id="relation-id" class="input-field">
-          <label class="input-label">ID da Relation de Mapeamento</label>
-          <input id="relation-id-input" type="text" class="input-text">
+        <div id="area-id" class="input-field">
+          <label class="input-label">ID da Área de Mapeamento</label>
+          <select id="area-type-selector" class="area-type-selector">
+            <option value="relation">Relation</option>
+            <option value="way">Way</option>
+          </select>
+          <input id="area-id-input" type="text" class="input-text">
         </div>
         <div id="amenities-list" class="input-field">
-            <fieldset id="amenities-fieldset" class="multiple-select">      
-                <legend>Amenities Aceitas</legend>
+            <fieldset id="amenities-fieldset" class="fieldset-body">      
+                <legend>Amenities Aceitas &#8645;</legend>
             </fieldset>      
         </form>
         </div>

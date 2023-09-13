@@ -137,14 +137,14 @@ a.changeset-title:hover {
   margin: 10px 0px;
 }
 
-.relation-info {
+.area-info {
   width: 100%;
   font-size: medium;
   text-align: left;
   padding: 10px 0px;
 }
 
-.relation-link {
+.area-link {
   color: #FF6200;
   font-weight: bold;
 }

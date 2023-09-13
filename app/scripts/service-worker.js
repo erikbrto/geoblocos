@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const OSM_ROOT_URL = 'https://www.openstreetmap.org';
   const LANDING_PAGE = '../templates/not-logged.html';
   const PANEL_PAGE = '../templates/sidepanel.html';
@@ -42,15 +42,21 @@
     .setPanelBehavior({ openPanelOnActionClick: true })
     .catch((error) => console.error(error));
 
+  await chrome.sidePanel.setOptions({ enabled: false });
+
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (!tab.url || changeInfo.status !== 'complete') return;
     const url = new URL(tab.url);
+    const isOSM = url.origin === OSM_ROOT_URL;
+    const sidePanel = await chrome.sidePanel.getOptions({ tabId });
 
-    if (url.origin === OSM_ROOT_URL) {
+    console.log(changeInfo);
+
+    if (!isOSM && sidePanel.enabled) {
+      await deactivateSidePanel(tabId);
+    } else if (isOSM && !sidePanel.enabled) {
       await updateLoginInfo(tabId);
       await activateSidePanel(tabId);
-    } else {
-      await deactivateSidePanel(tabId);
     }
   });
 

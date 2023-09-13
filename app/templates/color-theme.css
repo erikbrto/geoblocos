@@ -26,6 +26,7 @@ a:any-link {
   border: #C6C99A solid 2.5px;
 }
 
+.area-type-selector,
 .content-selector,
 .input-text {
   color: #5A2D03;
@@ -33,11 +34,9 @@ a:any-link {
   border: 0.1px solid #C4B6A9;
 }
 
-.content-selector:focus,
-.input-text[type="text"]:focus,
-.input-text[type="search"]:focus {
+*:focus{
   outline: none;
-  border: 1px solid #5A2D03;
+  border: 2px solid #5A2D03;
 }
 
 .content-card {

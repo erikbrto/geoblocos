@@ -1,16 +1,20 @@
 import { OSM_API_URL, OSM_ROOT_URL } from '../utils/constants.js';
+import { AreaType } from "../models/enums.js";
 import { SidePanelPage } from '../models/enums.js';
 import { amenity } from '../models/osm-attributes.js';
-import { changeSidePanelPage, viewLinkOnAtiveTab } from './common.js';
+import { changeSidePanelPage } from './common.js';
 
 export class CreateProjectView {
+  areaType = AreaType.Relation;
+
   constructor(username) {
     this.username = username;
   }
 
   show() {
     this.activateProjectNameInput();
-    this.activateRelationIdInput();
+    this.activateAreaTypeSelector();
+    this.activateAreaIdInput();
     this.fillFieldset('amenities-fieldset', amenity);
     this.activateCreateProjectButton();
     this.activateCancelButton();
@@ -38,37 +42,47 @@ export class CreateProjectView {
     });
   }
 
-  activateRelationIdInput() {
-    const relationIdInput = document.getElementById('relation-id-input');
-    const relationIdDiv = relationIdInput.parentElement;
+  activateAreaTypeSelector() {
+    const areaTypeSelector = document.getElementById('area-type-selector');
+    const areaTypeDiv = areaTypeSelector.parentElement;
 
-    relationIdInput.addEventListener('input', async (event) => {
-      const relationId = event.target.value;
-      const isValid = this.validateInputText('^[0-9]+$', relationId);
+    areaTypeSelector.addEventListener('change', (event) => {
+      const selectedAreaType = event.target.value;
+      this.areaType = selectedAreaType;
+    });
+  }
+
+  activateAreaIdInput() {
+    const areaIdInput = document.getElementById('area-id-input');
+    const areaIdDiv = areaIdInput.parentElement;
+
+    areaIdInput.addEventListener('input', async (event) => {
+      const areaId = event.target.value;
+      const isValid = this.validateInputText('^[0-9]+$', areaId);
       const osmIdExists = await fetch(
-        `${OSM_API_URL}/relation/${relationId}.json`
+        `${OSM_API_URL}/${this.areaType}/${areaId}.json`
       );
 
-      if (osmIdExists.ok || relationId === '') {
-        this.removeErrorMessage(relationIdDiv);
+      if (osmIdExists.ok || areaId === '') {
+        this.removeErrorMessage(areaIdDiv);
         if (osmIdExists.ok) {
-          const osmRelation = await osmIdExists.json();
+          const osmArea = await osmIdExists.json();
           this.addSuccessMessage(
-            `Relation: ${osmRelation.elements[0]?.tags?.name}`,
-            relationIdDiv
+            `${this.capitalizeFirstLetter(this.areaType)}: ${osmArea.elements[0]?.tags?.name}`,
+            areaIdDiv
           );
         }
       } else if (isValid) {
-        this.removeSuccessMessage(relationIdDiv);
+        this.removeSuccessMessage(areaIdDiv);
         this.addErrorMessage(
           'O ID não existe na base de dados do OpenStreetMap',
-          relationIdDiv
+          areaIdDiv
         );
       } else {
-        this.removeSuccessMessage(relationIdDiv);
+        this.removeSuccessMessage(areaIdDiv);
         this.addErrorMessage(
           'O ID deve conter apenas caracteres númericos',
-          relationIdDiv
+          areaIdDiv
         );
       }
     });
@@ -81,7 +95,7 @@ export class CreateProjectView {
     createProjectButton.addEventListener('click', async (event) => {
       event.stopPropagation();
       const projectNameInput = document.getElementById('project-name-input');
-      const relationIdInput = document.getElementById('relation-id-input');
+      const areaIdInput = document.getElementById('area-id-input');
       const amenitiesFieldset = document.getElementById('amenities-fieldset');
       const amenitiesButtons =
         amenitiesFieldset.querySelectorAll('.fieldset-button');
@@ -95,7 +109,7 @@ export class CreateProjectView {
 
       const project = {
         name: projectNameInput.value,
-        relationId: relationIdInput.value,
+        areaId: areaIdInput.value,
         amenities: amenities,
       };
 
@@ -112,14 +126,14 @@ export class CreateProjectView {
     const regexProjectName = new RegExp(
       '^[A-ZÁÉÓÂÔ][A-Za-zÁ-Úá-úÂÊÔâêôÃÕãõÇç:o0-9- ]*$'
     );
-    const regexRelationId = new RegExp('^[0-9]+$');
+    const regexAreaId = new RegExp('^[0-9]+$');
     const osmIdExists = await fetch(
-      `${OSM_API_URL}/relation/${project.relationId}.json`
+      `${OSM_API_URL}/${this.areaType}/${project.areaId}.json`
     );
 
     return (
       regexProjectName.test(project.name) &&
-      regexRelationId.test(project.relationId) &&
+      regexAreaId.test(project.areaId) &&
       osmIdExists.ok &&
       project.amenities.length > 0
     );
@@ -135,6 +149,10 @@ export class CreateProjectView {
 
   fillFieldset(fieldsetId, data) {
     const amenitiesFieldset = document.getElementById(fieldsetId);
+    const amenitiesFieldsetDiv = document.createElement('div');
+
+    amenitiesFieldsetDiv.classList.add('fieldset-div');
+    amenitiesFieldsetDiv.hidden = true;
 
     for (const [key, values] of Object.entries(data)) {
       const buttonsGroup = document.createElement('div');
@@ -143,7 +161,7 @@ export class CreateProjectView {
       buttonsGroup.classList.add('fieldset-group');
       keyLabel.textContent = key;
       keyLabel.classList.add('fieldset-label');
-      amenitiesFieldset.appendChild(keyLabel);
+      amenitiesFieldsetDiv.appendChild(keyLabel);
 
       for (const value of values) {
         const valueButton = document.createElement('input');
@@ -160,8 +178,18 @@ export class CreateProjectView {
         buttonsGroup.appendChild(valueButton);
       }
 
-      amenitiesFieldset.appendChild(buttonsGroup);
+      amenitiesFieldsetDiv.appendChild(buttonsGroup);
     }
+
+    amenitiesFieldset.addEventListener('click', (event) => {
+      event.stopPropagation();
+      this.toggleFieldset(amenitiesFieldsetDiv);
+    });
+    amenitiesFieldset.appendChild(amenitiesFieldsetDiv);
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   validateInputText(regexPattern, inputText) {
@@ -215,6 +243,10 @@ export class CreateProjectView {
   checkContainsErrorMessage(divElement) {
     const errorMessage = divElement.querySelector('.error-message');
     return errorMessage !== null;
+  }
+
+  toggleFieldset(fieldsetDiv) {
+    fieldsetDiv.hidden = !fieldsetDiv.hidden;
   }
 
   toggleFieldsetButton(button) {

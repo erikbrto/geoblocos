@@ -25,13 +25,13 @@ export class OpenProjects {
 
   getAll() {
     return this.#data
-      .sort((a, b) => (a.relationName < b.relationName ? -1 : 1))
+      .sort((a, b) => (a.areaName < b.areaName ? -1 : 1))
   }
 
   getAllFromUser(username) {
     return this.#data
       .filter((item) => item.username === username)
-      .sort((a, b) => (a.relationName < b.relationName ? -1 : 1))
+      .sort((a, b) => (a.areaName < b.areaName ? -1 : 1))
   }
 
   delete(id) {

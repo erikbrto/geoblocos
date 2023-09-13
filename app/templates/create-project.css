@@ -69,7 +69,16 @@
   border-radius: 5px;
 }
 
-.multiple-select {
+.area-type-selector {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-variant: small-caps;
+  letter-spacing: 5px;
+}
+
+.fieldset-body {
   border-radius: 5px;
   border: 1px solid #5A2D03;
   display: flex;
@@ -82,11 +91,14 @@
   text-align: left;
 }
 
-.fieldset-group {}
+.fieldset-group {
+  display: inherit;
+}
 
 .fieldset-button {
   margin: 1px;
   border-radius: 5px;
+  font-family: ui-rounded;
 }
 
 .create-project-button {

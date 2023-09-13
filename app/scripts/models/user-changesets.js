@@ -1,4 +1,3 @@
-import { MappingChangeset } from './mapping-changeset.js';
 import { ChangetsetStatus } from './enums.js';
 
 export class UserChangesets {

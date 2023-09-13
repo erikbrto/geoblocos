@@ -1,11 +1,12 @@
 export class MappingProject {
-    constructor(id, name, username, relationId, relationName, relationNodes, acceptedAmenities){
+    constructor(id, name, username, areaType, areaId, areaName, areaNodes, acceptedAmenities){
         this.id = id;
         this.name = name;
         this.username = username;
-        this.relationId = relationId;
-        this.relationName = relationName;
-        this.relationNodes = relationNodes;
+        this.areaType = areaType;
+        this.areaId = areaId;
+        this.areaName = areaName;
+        this.areaNodes = areaNodes;
         this.acceptedAmenities = acceptedAmenities;
     }
 }

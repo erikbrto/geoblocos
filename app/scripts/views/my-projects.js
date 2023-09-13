@@ -22,7 +22,7 @@ export class MyProjectsView {
       projectsToShow = projectsToShow.filter(
         (project) =>
           project.name.toLowerCase().includes(filter) ||
-          project.relationName.toLowerCase().includes(filter)
+          project.areaName.toLowerCase().includes(filter)
       );
       removeContentCards();
     }
@@ -48,7 +48,7 @@ export class MyProjectsView {
     searchBarElement.className = 'input-text';
     searchBarElement.placeholder = 'Pesquisar projetos...';
 
-    searchBarElement.addEventListener('keyup', (event) => {
+    searchBarElement.addEventListener('keyup', (event) => {area
       new Promise((resolve) => setTimeout(resolve, 1000));
       const filter = event.target.value.toLowerCase();
       this.show(filter);
@@ -79,9 +79,10 @@ export class MyProjectsView {
     const newProjectElement = document.createElement('div');
 
     this.addProjectName(project.name, newProjectElement);
-    this.addRelationInfo(
-      project.relationId,
-      project.relationName,
+    this.addAreaInfo(
+      project.areaType,
+      project.areaId,
+      project.areaName,
       newProjectElement
     );
     this.addAmenitiesInfo(project.acceptedAmenities, newProjectElement);
@@ -104,24 +105,24 @@ export class MyProjectsView {
     parentNode.appendChild(projectNameElement);
   }
 
-  addRelationInfo(relationId, relationName, parentNode) {
-    const relationInfoElement = document.createElement('div');
+  addAreaInfo(areaType, areaId, areaName, parentNode) {
+    const areaInfoElement = document.createElement('div');
     const brElement = document.createElement('br');
-    const relationLinkElement = document.createElement('a');
+    const areaLinkElement = document.createElement('a');
 
-    relationInfoElement.innerText = 'Região a ser mapeada: ';
-    relationInfoElement.className = 'relation-info';
+    areaInfoElement.innerText = 'Área a ser mapeada: ';
+    areaInfoElement.className = 'area-info';
 
-    relationLinkElement.textContent = relationName;
-    relationLinkElement.className = 'relation-link';
-    relationLinkElement.href = `${OSM_ROOT_URL}/relation/${relationId}`;
-    relationLinkElement.title =
+    areaLinkElement.textContent = areaName;
+    areaLinkElement.className = 'area-link';
+    areaLinkElement.href = `${OSM_ROOT_URL}/${areaType}/${areaId}`;
+    areaLinkElement.title =
       'Pressione [CTRL + Clique] para abrir em uma nova aba.';
 
-    relationLinkElement.addEventListener('click', viewLinkOnAtiveTab);
-    relationInfoElement.appendChild(brElement);
-    relationInfoElement.appendChild(relationLinkElement);
-    parentNode.appendChild(relationInfoElement);
+    areaLinkElement.addEventListener('click', viewLinkOnAtiveTab);
+    areaInfoElement.appendChild(brElement);
+    areaInfoElement.appendChild(areaLinkElement);
+    parentNode.appendChild(areaInfoElement);
   }
 
   addAmenitiesInfo(amenities, parentNode) {
