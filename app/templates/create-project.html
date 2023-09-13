@@ -3,36 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <title>My Sidepanel</title>
-    <link href="extension.css" rel="stylesheet" type="text/css" />
+    <link href="color-theme.css" rel="stylesheet" type="text/css" />
+    <link href="create-project.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <div id="username" class="header-tag">osm-username</div>
-        <div id="metamask" class="header-tag">
-          metamask
-          <img id="metamask-status" />
+        <div>
+          <h1>Criar Projeto</h1>
         </div>
       </div>
       <div id="content-box" class="content-box">
-        <div id="content-selection" class="input-field">
-          <select id="content-selector" class="content-selector">
-            <option value="my-changesets">Meus Mapeamentos</option>
-            <option value="my-nfts">Meus NFTs</option>
-            <option value="open-projects">Projetos Abertos</option>
-            <option value="my-projects">Meus Projetos</option>
-          </select>
+        <div id="project-name" class="input-field">
+          <label class="input-label">Nome do Projeto</label>
+          <input id="project-name-input" type="text" class="input-text">
+        </div>
+        <div id="relation-id" class="input-field">
+          <label class="input-label">ID da Relation de Mapeamento</label>
+          <input id="relation-id-input" type="text" class="input-text">
+        </div>
+        <div id="amenities-list" class="input-field">
+            <fieldset id="amenities-fieldset" class="multiple-select">      
+                <legend>Amenities Aceitas</legend>
+            </fieldset>      
+        </form>
         </div>
       </div>
       <div class="footer">
-        <a
-          href="https://www.flaticon.com/br/icones-gratis/nft"
-          title="nft ícones"
-          >NFT Ícones criados por Mehwish - Flaticon</a
-        >
+        <div  class="input-field">
+          <button id="create-project-button" class="create-project-button">Criar Projeto</button>
+        </div>
+        <div class="input-field">
+          <button id="cancel-button" class="cancel-button">Cancelar</button>
+        </div>
       </div>
     </div>
     <script type="module" src="../scripts/utils/eth-utils.js"></script>
-    <script type="module" src="../scripts/controllers/sidepanel.js"></script>
+    <script type="module" src="../scripts/controllers/create-project.js"></script>
   </body>
 </html>

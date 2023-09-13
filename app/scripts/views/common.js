@@ -1,3 +1,27 @@
+export function showLoadingSpinner() {
+  const contentBox = document.getElementById('content-box');
+  const divLoadingSpinner = document.createElement('div');
+  const loadingSpinner = document.createElement('img');
+
+  divLoadingSpinner.id = 'loading-spinner';
+  divLoadingSpinner.className = 'loading-spinner';
+  loadingSpinner.src = '../../buttons/loading-128.png';
+  
+  clearContentBox();
+  divLoadingSpinner.appendChild(loadingSpinner);
+  contentBox.appendChild(divLoadingSpinner);
+}
+
+export function removeLoadingSpinner() {
+  const loadingSpinner = document.getElementById('loading-spinner');
+  loadingSpinner?.remove();
+}
+
+export function clearContentBox() {
+  removeContentCards();
+  removeAllProjectsElements();
+}
+
 export function removeAllProjectsElements() {
   removeOpenProjectsElements();
   removeMyProjectsElements();
@@ -29,5 +53,16 @@ export function viewLinkOnAtiveTab(event) {
   event.stopPropagation();
   chrome.tabs.update({
     url: event.target.href,
+  });
+}
+
+export function changeSidePanelPage(pathToPage) {
+  const queryOptions = { active: true, lastFocusedWindow: true };
+  chrome.tabs.query(queryOptions).then((tabs) => {
+    chrome.sidePanel.setOptions({
+      tabId: tabs[0].id,
+      path: pathToPage,
+      enabled: true,
+    });
   });
 }

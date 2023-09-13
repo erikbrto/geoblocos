@@ -1,0 +1,59 @@
+html,
+body {
+  color: #0F0F0F;
+  background-color: #AAD3DF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+a:any-link {
+  color: #FF6200;
+  text-decoration: none;
+}
+
+.header,
+.landing-box,
+.footer {
+  background-color: #ADD19E;
+  border: 0.1px solid #9FC090;
+}
+
+.header-tag {
+  color: #0F0F0F;
+  background-color: #FFFFE5;
+  border: #C6C99A solid 2.5px;
+}
+
+.content-selector,
+.input-text {
+  color: #5A2D03;
+  background-color: #D9D0C9;
+  border: 0.1px solid #C4B6A9;
+}
+
+.content-selector:focus,
+.input-text[type="text"]:focus,
+.input-text[type="search"]:focus {
+  outline: none;
+  border: 1px solid #5A2D03;
+}
+
+.content-card {
+  background-color: #FFFFE5;
+  border: 1px solid #C6C99A;
+}
+
+.fieldset-button[isSelected="true"],
+.create-project-button,
+.content-card:hover {
+  background-color: #F9B29C;
+  border: 1px solid #DD8D78;
+}
+
+.fieldset-button[isSelected="false"],
+.cancel-button {
+  background-color: #FFFFE5;
+  border: 1px solid #C6C99A;
+}

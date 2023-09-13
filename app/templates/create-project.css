@@ -1,0 +1,109 @@
+/* LAYOUT */
+.container {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.header {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 0px 0px 40px 40px;
+  font-variant: small-caps;
+}
+
+.content-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  flex-grow: 15;
+}
+
+.footer {
+  margin-top: 25px;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+.input-field {
+  margin: 5px 15px;
+  padding: 10px 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: large;
+  font-variant: small-caps;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.input-label {
+  margin-bottom: 10px;
+  font-size: larger;
+}
+
+.success-message {
+  margin-top: 5px;
+  font-size: small;
+  letter-spacing: 2px;
+}
+
+.error-message {
+  margin-top: 5px;
+  color: red;
+  font-size: small;
+  letter-spacing: 2px;
+}
+
+.input-text {
+  width: 100%;
+  font-size: medium;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.multiple-select {
+  border-radius: 5px;
+  border: 1px solid #5A2D03;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.fieldset-label {
+  margin: 10px;
+  font-size: large;
+  text-align: left;
+}
+
+.fieldset-group {}
+
+.fieldset-button {
+  margin: 1px;
+  border-radius: 5px;
+}
+
+.create-project-button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: large;
+}
+
+.cancel-button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: large;
+}
+
+button.cancel-button:active,
+button.create-project-button:active {
+  transform: scale(0.98);
+}

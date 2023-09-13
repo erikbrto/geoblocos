@@ -1,5 +1,10 @@
 import { OSM_ROOT_URL } from '../utils/constants.js';
-import { removeContentCards, viewLinkOnAtiveTab } from './common.js';
+import { SidePanelPage } from '../models/enums.js';
+import {
+  removeContentCards,
+  viewLinkOnAtiveTab,
+  changeSidePanelPage,
+} from './common.js';
 
 export class MyProjectsView {
   constructor(projects, username) {
@@ -62,17 +67,10 @@ export class MyProjectsView {
     createProjectButtonElement.innerText = '+';
     createProjectButtonElement.className = 'create-project-button';
 
-    createProjectButtonElement.addEventListener('click', async () => {
-      const queryOptions = { active: true, lastFocusedWindow: true };
-      const [tab] = await chrome.tabs.query(queryOptions);
-
-      chrome.sidePanel.setOptions({
-        tabId: tab.id,
-        path: '../../templates/create-project.html',
-        enabled: true,
-      });
+    createProjectButtonElement.addEventListener('click', (event) => {
+      event.stopPropagation();
+      changeSidePanelPage(SidePanelPage.CreateProject);
     });
-
     createProjectElement.appendChild(createProjectButtonElement);
     parentNode.appendChild(createProjectElement);
   }

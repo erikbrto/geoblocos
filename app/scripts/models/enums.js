@@ -16,3 +16,9 @@ export class ContentSelection {
   static OpenProjects = 'open-projects';
   static MyProjects = 'my-projects';
 }
+
+export class SidePanelPage {
+  static Home = '../../templates/sidepanel.html';
+  static CreateProject = '../../templates/create-project.html';
+  static NotLogged = '../../templates/not-logged.html';
+}

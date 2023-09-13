@@ -1,5 +1,5 @@
 import { OSM_ROOT_URL } from '../utils/constants.js';
-import { removeAllProjectsElements, removeContentCards, viewLinkOnAtiveTab } from './common.js';
+import { viewLinkOnAtiveTab } from './common.js';
 
 export class MyNFTsView {
   constructor(changesets) {

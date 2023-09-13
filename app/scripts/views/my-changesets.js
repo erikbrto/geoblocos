@@ -1,5 +1,5 @@
 import { OSM_ROOT_URL } from '../utils/constants.js';
-import { removeAllProjectsElements, removeContentCards, viewLinkOnAtiveTab } from './common.js';
+import { viewLinkOnAtiveTab } from './common.js';
 
 export class MyChangesetsView {
   constructor(changesets) {
@@ -18,7 +18,7 @@ export class MyChangesetsView {
 
   async mintNFT(event) {
     event.stopPropagation();
-    event.target.src = '../../buttons/loading.gif';
+    event.target.src = '../../buttons/loading-32.png';
     event.target.style = 'transform: scale(1)';
     const changesetId =
       event.target.parentNode.parentNode.parentNode.parentNode.getAttribute(

@@ -5,12 +5,7 @@ import { MyChangesetsView } from '../views/my-changesets.js';
 import { MyNFTsView } from '../views/my-nfts.js';
 import { MyProjectsView } from '../views/my-projects.js';
 import { OpenProjectsView } from '../views/open-projects.js';
-import {
-  removeAllProjectsElements,
-  removeContentCards,
-  removeMyProjectsElements,
-  removeOpenProjectsElements,
-} from '../views/common.js';
+import { showLoadingSpinner, removeLoadingSpinner } from '../views/common.js';
 
 import { MappingProject } from '../models/mapping-project.js';
 import { OpenProjects } from '../models/open-projects.js';
@@ -58,6 +53,7 @@ class SidepanelController {
     });
     document.addEventListener('focus', async () => this.fillHeader());
     contentSelector.addEventListener('click', async (event) => {
+      event.stopPropagation();
       this.fillHeader();
       this.fillContentBox(event.target.value);
     });
@@ -84,27 +80,25 @@ class SidepanelController {
     while (this.loggedUser === undefined) {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
+
+    showLoadingSpinner();
     this.userChangesets = await fetchUserChangesets(this.loggedUser);
     this.openProjects = fetchOpenProjects();
-
-    removeContentCards();
+    removeLoadingSpinner();
 
     switch (contentSelecion) {
       case ContentSelection.MyChangesets:
         let myChagesetsView = new MyChangesetsView(this.userChangesets);
-        removeAllProjectsElements();
         myChagesetsView.show();
         break;
 
       case ContentSelection.MyNFTs:
         let myNFTsView = new MyNFTsView(this.userChangesets);
-        removeAllProjectsElements();
         myNFTsView.show();
         break;
 
       case ContentSelection.OpenProjects:
         let openProjectsView = new OpenProjectsView(this.openProjects);
-        removeMyProjectsElements();
         openProjectsView.show();
         break;
 
@@ -113,7 +107,6 @@ class SidepanelController {
           this.openProjects,
           this.loggedUser
         );
-        removeOpenProjectsElements();
         myProjectsView.show();
         break;
     }
