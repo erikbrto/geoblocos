@@ -1,12 +1,15 @@
+require('dotenv').config();
 const Web3 = require('web3');
 const { createExternalExtensionProvider } = require('@metamask/providers');
 const { storeChangesetNFT } = require('./ipfs-utils');
+const { MetaMaskStatus } = require('../app/scripts/models/enums');
+const NFT_CONTRACT = require('../data/artifacts/contracts/MappingNFT.sol/MappingNFT.json');
+const DATABASE_CONTRACT = require('../data/artifacts/contracts/ProjectDatabase.sol/ProjectDatabase.json');
 const {
   NFT_CONTRACT_ADRESS,
+  DATABASE_CONTRACT_ADRESS,
   ETHEREUM_NETWORK,
 } = require('../app/scripts/utils/constants');
-const { MetaMaskStatus } = require('../app/scripts/models/enums');
-const NFT_CONTRACT_ABI = require('./contract-abi.json');
 
 let metamask;
 let web3;
@@ -29,7 +32,7 @@ async function checkMetaMaskStatus() {
 async function isChangesetMinted(changesetId) {
   try {
     const mappingContract = new web3.eth.Contract(
-      NFT_CONTRACT_ABI,
+      NFT_CONTRACT.abi,
       NFT_CONTRACT_ADRESS
     );
     const resp = await mappingContract.methods
@@ -44,7 +47,7 @@ async function isChangesetMinted(changesetId) {
 
 async function fetchChangesetURI(changesetId) {
   const mappingContract = new web3.eth.Contract(
-    NFT_CONTRACT_ABI,
+    NFT_CONTRACT.abi,
     NFT_CONTRACT_ADRESS
   );
   const tokenId = await mappingContract.methods
@@ -63,7 +66,7 @@ async function mintChangeset(changesetId) {
 
   let isMinted = false;
   const mappingContract = new web3.eth.Contract(
-    NFT_CONTRACT_ABI,
+    NFT_CONTRACT.abi,
     NFT_CONTRACT_ADRESS
   );
   const ipfsChangesetNFT = await storeChangesetNFT(changesetId);

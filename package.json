@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "browserify utils/eth-utils.js --s ethutils > app/scripts/utils/eth-utils.js -t babelify --debug",
+    "debug": "browserify utils/eth-utils.js --s ethutils > app/scripts/utils/eth-utils.js -t babelify --debug",
     "build": "browserify utils/eth-utils.js --s ethutils > app/scripts/utils/eth-utils.js -t babelify"
   },
   "dependencies": {
@@ -11,6 +11,7 @@
     "@babel/core": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
     "babelify": "^10.0.0",
+    "dotenv": "^16.3.1",
     "tinyify": "^4.0.0"
   }
 }

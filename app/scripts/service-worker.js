@@ -50,8 +50,6 @@
     const isOSM = url.origin === OSM_ROOT_URL;
     const sidePanel = await chrome.sidePanel.getOptions({ tabId });
 
-    console.log(changeInfo);
-
     if (!isOSM && sidePanel.enabled) {
       await deactivateSidePanel(tabId);
     } else if (isOSM && !sidePanel.enabled) {
