@@ -7,48 +7,6 @@ import { MyProjectsView } from '../views/my-projects.js';
 import { OpenProjectsView } from '../views/open-projects.js';
 import { showLoadingSpinner, removeLoadingSpinner } from '../views/common.js';
 
-import { MappingProject } from '../models/mapping-project.js';
-import { OpenProjects } from '../models/open-projects.js';
-import { AreaType } from "../models/enums.js";
-
-function fetchOpenProjects() {
-  const cruzeiro = new MappingProject(
-    1,
-    'Mapeamento da região do Cruzeiro',
-    'bernardo25',
-    AreaType.Relation,
-    3359467,
-    'Cruzeiro',
-    new Set(['Rua 1', 'Rua 2', 'Rua 3']),
-    new Set(['school', 'hospital', 'parking-lot'])
-  );
-  const sudoeste = new MappingProject(
-    2,
-    'Inserir mapa do Sudoeste',
-    'Fidelis Assis',
-    AreaType.Relation,
-    3359488,
-    'Sudoeste e Octogonal',
-    new Set(['Rua 1', 'Rua 2', 'Rua 3']),
-    new Set(['school', 'hospital', 'parking-lot'])
-  );
-  const parque = new MappingProject(
-    3,
-    'Inserir mapa do Parque',
-    'tg4567',
-    AreaType.Way,
-    25535698,
-    'Parque da Cidade',
-    new Set(['Rua 1', 'Rua 2', 'Rua 3']),
-    new Set(['school', 'hospital', 'parking-lot'])
-  );
-  const projects = new OpenProjects();
-  projects.insert(cruzeiro);
-  projects.insert(sudoeste);
-  projects.insert(parque);
-  return projects;
-}
-
 class SidepanelController {
   static loggedUser;
   static metamaskStatus;
@@ -64,7 +22,6 @@ class SidepanelController {
       this.fillHeader();
       this.fillContentBox(ContentSelection.MyChangesets);
     });
-    document.addEventListener('focus', async () => this.fillHeader());
     contentSelector.addEventListener('click', async (event) => {
       event.stopPropagation();
       this.fillHeader();
@@ -96,7 +53,7 @@ class SidepanelController {
 
     showLoadingSpinner();
     this.userChangesets = await fetchUserChangesets(this.loggedUser);
-    this.openProjects = fetchOpenProjects();
+    this.openProjects = await ethutils.fetchOpenProjects();
     removeLoadingSpinner();
 
     switch (contentSelecion) {

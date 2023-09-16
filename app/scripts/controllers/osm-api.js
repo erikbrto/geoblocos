@@ -32,7 +32,9 @@ export async function fetchUserChangesets(username) {
           : ChangetsetStatus.New,
         coordinates.minCoordinates,
         coordinates.maxCoordinates,
-        amenities
+        {
+          amenity: amenities,
+        }
       );
 
       userChangesets.insert(mappingChangeset);
@@ -95,4 +97,27 @@ async function fetchChangesetCoordinates(changesetId) {
   } catch (error) {
     console.log(`erro ao consultar coordenadas: ${error}`);
   }
+}
+
+export async function fetchRelationNodes(areaType, areaId) {
+  const result = new Array();
+  const response = await fetch(
+    `${OSM_API_URL}/${areaType}/${areaId}/full.json`,
+    {
+      method: 'GET',
+    }
+  );
+
+  if (response.ok) {
+    const responseJSON = await response.json();
+
+    for (const elements of responseJSON.elements) {
+      if (elements.type === 'node') {
+        const coordinates = new Coordinates(elements.lat, elements.lon)
+        result.push(coordinates);
+      }
+    }
+  }
+
+  return result;
 }

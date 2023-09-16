@@ -3,6 +3,11 @@ export class AreaType {
   static Way = 'way';
 }
 
+export class AreaTypeContract {
+  static Relation = 0n;
+  static Way = 1n;
+}
+
 export class ChangetsetStatus {
   static Minted = 'Minted';
   static New = 'New';

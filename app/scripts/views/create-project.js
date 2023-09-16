@@ -1,5 +1,5 @@
 import { OSM_API_URL, OSM_ROOT_URL } from '../utils/constants.js';
-import { AreaType } from "../models/enums.js";
+import { AreaType } from '../models/enums.js';
 import { SidePanelPage } from '../models/enums.js';
 import { amenity } from '../models/osm-attributes.js';
 import { changeSidePanelPage } from './common.js';
@@ -44,7 +44,6 @@ export class CreateProjectView {
 
   activateAreaTypeSelector() {
     const areaTypeSelector = document.getElementById('area-type-selector');
-    const areaTypeDiv = areaTypeSelector.parentElement;
 
     areaTypeSelector.addEventListener('change', (event) => {
       const selectedAreaType = event.target.value;
@@ -68,7 +67,9 @@ export class CreateProjectView {
         if (osmIdExists.ok) {
           const osmArea = await osmIdExists.json();
           this.addSuccessMessage(
-            `${this.capitalizeFirstLetter(this.areaType)}: ${osmArea.elements[0]?.tags?.name}`,
+            `${this.capitalizeFirstLetter(this.areaType)}: ${
+              osmArea.elements[0]?.tags?.name
+            }`,
             areaIdDiv
           );
         }
@@ -110,13 +111,21 @@ export class CreateProjectView {
       const project = {
         name: projectNameInput.value,
         areaId: areaIdInput.value,
-        amenities: amenities,
+        validKeys: {
+          amenity: amenities,
+        },
       };
 
       this.validateProject(project).then((isValid) => {
         if (!isValid) return;
 
-        console.log(project);
+        ethutils.createProject(
+          project.name,
+          this.username,
+          this.areaType,
+          project.areaId,
+          project.validKeys
+        );
         changeSidePanelPage(SidePanelPage.Home);
       });
     });
@@ -134,8 +143,7 @@ export class CreateProjectView {
     return (
       regexProjectName.test(project.name) &&
       regexAreaId.test(project.areaId) &&
-      osmIdExists.ok &&
-      project.amenities.length > 0
+      osmIdExists.ok
     );
   }
 
@@ -148,11 +156,11 @@ export class CreateProjectView {
   }
 
   fillFieldset(fieldsetId, data) {
-    const amenitiesFieldset = document.getElementById(fieldsetId);
-    const amenitiesFieldsetDiv = document.createElement('div');
+    const fieldset = document.getElementById(fieldsetId);
+    const fieldsetDiv = document.createElement('div');
 
-    amenitiesFieldsetDiv.classList.add('fieldset-div');
-    amenitiesFieldsetDiv.hidden = true;
+    fieldsetDiv.classList.add('fieldset-div');
+    fieldsetDiv.hidden = true;
 
     for (const [key, values] of Object.entries(data)) {
       const buttonsGroup = document.createElement('div');
@@ -161,7 +169,7 @@ export class CreateProjectView {
       buttonsGroup.classList.add('fieldset-group');
       keyLabel.textContent = key;
       keyLabel.classList.add('fieldset-label');
-      amenitiesFieldsetDiv.appendChild(keyLabel);
+      fieldsetDiv.appendChild(keyLabel);
 
       for (const value of values) {
         const valueButton = document.createElement('input');
@@ -178,14 +186,14 @@ export class CreateProjectView {
         buttonsGroup.appendChild(valueButton);
       }
 
-      amenitiesFieldsetDiv.appendChild(buttonsGroup);
+      fieldsetDiv.appendChild(buttonsGroup);
     }
 
-    amenitiesFieldset.addEventListener('click', (event) => {
+    fieldset.addEventListener('click', (event) => {
       event.stopPropagation();
-      this.toggleFieldset(amenitiesFieldsetDiv);
+      this.toggleFieldset(fieldsetDiv);
     });
-    amenitiesFieldset.appendChild(amenitiesFieldsetDiv);
+    fieldset.appendChild(fieldsetDiv);
   }
 
   capitalizeFirstLetter(string) {

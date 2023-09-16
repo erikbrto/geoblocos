@@ -48,8 +48,7 @@ export class MyProjectsView {
     searchBarElement.className = 'input-text';
     searchBarElement.placeholder = 'Pesquisar projetos...';
 
-    searchBarElement.addEventListener('keyup', (event) => {area
-      new Promise((resolve) => setTimeout(resolve, 1000));
+    searchBarElement.addEventListener('keyup', (event) => {
       const filter = event.target.value.toLowerCase();
       this.show(filter);
     });
@@ -85,7 +84,7 @@ export class MyProjectsView {
       project.areaName,
       newProjectElement
     );
-    this.addAmenitiesInfo(project.acceptedAmenities, newProjectElement);
+    this.addAmenitiesInfo(project.validKeys.amenity, newProjectElement);
 
     // Alterações no elemento do changeset
     newProjectElement.id = `project-${project.id}`;
@@ -133,7 +132,7 @@ export class MyProjectsView {
     amenitiesInfoElement.className = 'amenities-info';
     amenitiesListElement.className = 'amenities-list';
 
-    for (const amenity of amenities.values()) {
+    for (const amenity of amenities) {
       const amenityElement = document.createElement('li');
       amenityElement.textContent = amenity;
       amenitiesListElement.appendChild(amenityElement);
