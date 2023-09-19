@@ -52,8 +52,8 @@ class SidepanelController {
     }
 
     showLoadingSpinner();
-    this.userChangesets = await fetchUserChangesets(this.loggedUser);
     this.openProjects = await ethutils.fetchOpenProjects();
+    this.userChangesets = await fetchUserChangesets(this.loggedUser, this.openProjects);
     removeLoadingSpinner();
 
     switch (contentSelecion) {

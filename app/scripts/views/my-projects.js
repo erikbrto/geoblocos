@@ -129,8 +129,8 @@ export class MyProjectsView {
     const amenitiesListElement = document.createElement('ul');
 
     amenitiesInfoElement.innerText = 'Amenities aceitas: ';
-    amenitiesInfoElement.className = 'amenities-info';
-    amenitiesListElement.className = 'amenities-list';
+    amenitiesInfoElement.className = 'attributes-info';
+    amenitiesListElement.className = 'attributes-list';
 
     for (const amenity of amenities) {
       const amenityElement = document.createElement('li');

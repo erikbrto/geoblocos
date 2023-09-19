@@ -41,13 +41,14 @@ export class MyChangesetsView {
 
     this.addChangesetTitle(changeset.id, newChangesetRow);
     this.addButtonElement(newChangesetRow);
-
+    
     // Alterações no elemento do changeset
     newChangesetElement.id = `changeset-${changeset.id}`;
     newChangesetElement.className = 'content-card';
     newChangesetElement.setAttribute('changesetId', changeset.id);
-
+    
     newChangesetElement.appendChild(newChangesetRow);
+    this.addProjectsElement(changeset.projects, newChangesetElement);
     parentNode.appendChild(newChangesetElement);
   }
 
@@ -79,5 +80,23 @@ export class MyChangesetsView {
     buttonLink.appendChild(buttonIcon);
     buttonElement.appendChild(buttonLink);
     parentNode.appendChild(buttonElement);
+  }
+
+  addProjectsElement(projects, parentNode) {
+    const projectsInfoElement = document.createElement('div');
+    const projectsListElement = document.createElement('ul');
+
+    projectsInfoElement.innerText = 'Projetos atendidos:';
+    projectsInfoElement.className = 'attributes-info';
+    projectsListElement.className = 'attributes-list';
+
+    for (const project of projects) {
+      const projectElement = document.createElement('li');
+      projectElement.textContent = `${project.name} (${project.areaName})`;
+      projectsListElement.appendChild(projectElement);
+    }
+
+    projectsInfoElement.appendChild(projectsListElement);
+    parentNode.appendChild(projectsInfoElement);
   }
 }

@@ -1,6 +1,7 @@
 # Arquivos do projeto
 app/scripts/utils
 utils/contract-abi.json
+geo/
 
 # Logs
 logs

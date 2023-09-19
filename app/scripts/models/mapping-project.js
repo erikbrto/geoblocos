@@ -6,7 +6,7 @@ export class MappingProject {
     areaType,
     areaId,
     areaName,
-    areaNodes,
+    validNodes,
     validKeys
   ) {
     this.id = id;
@@ -15,7 +15,7 @@ export class MappingProject {
     this.areaType = areaType;
     this.areaId = areaId;
     this.areaName = areaName;
-    this.areaNodes = areaNodes;
+    this.validNodes = validNodes;
     this.validKeys = validKeys;
   }
 }

@@ -149,14 +149,14 @@ a.changeset-title:hover {
   font-weight: bold;
 }
 
-.amenities-info {
+.attributes-info {
   width: 100%;
   font-size: medium;
   text-align: left;
   padding: 10px 0px;
 }
 
-.amenities-list {
+.attributes-list {
   font-family: ui-rounded;
   list-style-type: disc;
   font-style: italic;

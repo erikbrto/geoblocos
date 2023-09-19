@@ -1,10 +1,9 @@
 export class MappingChangeset {
-  constructor(id, changesetStatus, minCoortinates, maxCoordinates, keys) {
+  constructor(id, changesetStatus, nodes, projects) {
     this.id = id;
     this.status = changesetStatus;
-    this.minCoortinates = minCoortinates;
-    this.maxCoordinates = maxCoordinates;
-    this.keys = keys;
+    this.nodes = nodes;
+    this.projects = projects;
     this.tokenURI = null;
   }
 }

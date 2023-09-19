@@ -1,6 +1,6 @@
 const Web3 = require('web3');
 const { createExternalExtensionProvider } = require('@metamask/providers');
-const { fetchRelationNodes } = require('../app/scripts/controllers/osm-api');
+const { fetchValidNodes } = require('../app/scripts/controllers/osm-api');
 const { storeChangesetNFT } = require('./ipfs-utils');
 const {
   MetaMaskStatus,
@@ -170,7 +170,8 @@ async function fetchOpenProjects() {
       const areaType = parseAreaType(projectData.areaType);
       const aredId = Web3.utils.toNumber(projectData.areaId);
       const areaName = await fetchAreaName(areaType, aredId);
-      const areaNodes = await fetchRelationNodes(areaType, aredId);
+      const validKeys = await JSON.parse(projectData.jsonValidKeys);
+      const validNodes = await fetchValidNodes(areaType, aredId, validKeys);
       const project = new MappingProject(
         projectId,
         projectData.name,
@@ -178,8 +179,8 @@ async function fetchOpenProjects() {
         areaType,
         aredId,
         areaName,
-        areaNodes,
-        JSON.parse(projectData.jsonValidKeys)
+        validNodes,
+        validKeys
       );
 
       console.log(project);
