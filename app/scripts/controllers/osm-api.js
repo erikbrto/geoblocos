@@ -33,8 +33,6 @@ export async function fetchUserChangesets(username, projects) {
           acceptedProjects
         );
 
-        console.log(mappingChangeset);
-
         userChangesets.insert(mappingChangeset);
       }
     }
@@ -178,13 +176,16 @@ export async function fetchValidNodes(areaType, areaId, validKeys) {
 }
 
 function buildOverpassValidNodesQuery(areaType, areaId, validKeys) {
-  let validKeysQuery = '';
-
+  let keysQuery = Object.keys(validKeys).join('|');
+  let valuesQuery = [];
+ 
   for (const [key, values] of Object.entries(validKeys)) {
     for (const value of values) {
-      validKeysQuery += `["${key}"="${value}"]`;
+      valuesQuery.push(value);
     }
   }
 
-  return `[out:json][timeout:25];${areaType}(id:${areaId});map_to_area;node(area)${validKeysQuery};out skel;`;
+  valuesQuery = valuesQuery.join('|');
+
+  return `[out:json][timeout:25];${areaType}(id:${areaId});map_to_area;node(area)[~"^(${keysQuery})$"~"^(${valuesQuery})$"];out skel;`;
 }

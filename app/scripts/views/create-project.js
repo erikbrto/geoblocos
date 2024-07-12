@@ -125,8 +125,14 @@ export class CreateProjectView {
           this.areaType,
           project.areaId,
           project.validKeys
+        ).then(
+          (isCreated) => {
+            console.log(isCreated 
+              ? 'Projeto criado com sucesso!' 
+              : 'Erro ao criar projeto!');
+            changeSidePanelPage(SidePanelPage.Home);
+          }
         );
-        changeSidePanelPage(SidePanelPage.Home);
       });
     });
   }

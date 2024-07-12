@@ -84,7 +84,7 @@ async function mintChangeset(changesetId) {
     if (metamask.selectedAddress !== null) {
       const mintMethod = mappingContract.methods.mintChangesetNFT(
         metamask.selectedAddress,
-        4,
+        changesetId,
         ipfsChangesetNFT
       );
       const gasPrice = await web3.eth.getGasPrice();
@@ -183,7 +183,6 @@ async function fetchOpenProjects() {
         validKeys
       );
 
-      console.log(project);
       projects.insert(project);
     }
   }
