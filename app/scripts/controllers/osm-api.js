@@ -29,7 +29,7 @@ export async function fetchUserChangesets(username, projects) {
           (await ethutils.isChangesetMinted(changeset.id))
             ? ChangetsetStatus.Minted
             : ChangetsetStatus.New,
-          await fetchChangesetNodes(changeset.id),
+          nodes,
           acceptedProjects
         );
 
